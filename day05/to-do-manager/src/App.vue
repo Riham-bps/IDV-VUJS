@@ -3,6 +3,7 @@ import { type Task, Status } from './types/task.ts';
 import { computed, ref } from 'vue';
 import TaskForm from './components/TaskForm.vue';
 import TaskFilter from './components/TaskFilter.vue';
+import TaskList from './components/TaskList.vue';
 
 // La liste des tasks doit rester dans App.vue
 const taskList = ref<Task[]>([
@@ -48,31 +49,14 @@ const filtredTasks = computed(() => {
   <main>
     <!-- mes components: TaskForm, TaskFilter, TaskList -->
 
-    <!-- Composant 1: TaskForm: Ajouter task -->
+    <!-- Composant 1 - TaskForm: Ajouter task -->
     <TaskForm @add="addTaskToList" />
 
-    <!-- Composant 2: Filtre des tasks -->
+    <!-- Composant 2 - FilterTask - Filtre des tasks -->
     <TaskFilter @filtre="changeFiltre" />
 
-    <!-- Composant 3: La liste des tasks selon status -->
-    <ul>
-      <li v-for="task in filtredTasks" :key="task.id">
-        {{ task.title }} - {{ task.status }} - {{ task.id }}
-
-        <!-- Supprimer task -->
-        <button @click="deleteTask(task.id)">supprimer task</button>
-
-        <!-- Modifier status -->
-        <select v-model="task.status">
-          <option>{{ Status.ToDo }}</option>
-          <option>{{ Status.InProgress }}</option>
-          <option>{{ Status.Done }}</option>
-        </select>
-
-        <!-- Edit titre task -->
-        <input v-model="task.title" placeholder="Modifier la tâche" />
-      </li>
-    </ul>
+    <!-- Composant 3 - TaskList - La liste des tasks selon status -->
+    <TaskList :tasks="filtredTasks" @delete="deleteTask" />
   </main>
 
   <footer>Réalisée par bassim_r 2026</footer>
