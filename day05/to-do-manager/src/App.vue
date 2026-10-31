@@ -31,7 +31,7 @@ function addTaskToList(title: string) {
   taskList.value.push(task);
 }
 // Fonction 2: supprimer task donnée reçue depuis @delete TaskList
-function deleteTask(id: number | string) {
+function deleteTask(id: string) {
   taskList.value = taskList.value.filter(task => task.id !== id);
 }
 // Fonction 4: changement filtre - donnée reçue depuis @filtre TaskFilter

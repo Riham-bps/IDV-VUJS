@@ -1,16 +1,14 @@
 export enum Status {
-    ToDo = "to do",
-    InProgress = "in progress",
-    Done = "done"
+  ToDo = 'to do',
+  InProgress = 'in progress',
+  Done = 'done',
 }
-
 
 export interface Task {
-    id: number | string,
-    title: string,
-    status: Status
+  id: string;
+  title: string;
+  status: Status;
 }
-
 
 // const task: Task = {
 //     id: 123,
