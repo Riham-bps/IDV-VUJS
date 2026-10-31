@@ -2,6 +2,7 @@
 import { type Task, Status } from './types/task.ts';
 import { computed, ref } from 'vue';
 import TaskForm from './components/TaskForm.vue';
+import TaskFilter from './components/TaskFilter.vue';
 
 // La liste des tasks doit rester dans App.vue
 const taskList = ref<Task[]>([
@@ -27,6 +28,9 @@ function deleteTask(id: number | string) {
 }
 
 // filtre des tasks en fonction du statut
+function changeFiltre(value: string) {
+  filtre.value = value;
+}
 const filtre = ref('all');
 const filtredTasks = computed(() => {
   if (filtre.value === 'all') {
@@ -47,16 +51,10 @@ const filtredTasks = computed(() => {
     <!-- Composant 1: TaskForm: Ajouter task -->
     <TaskForm @add="addTaskToList" />
 
-    <!-- La liste des tasks -->
-    <h2>filtre</h2>
+    <!-- Composant 2: Filtre des tasks -->
+    <TaskFilter @filtre="changeFiltre" />
 
-    <select v-model="filtre">
-      <option value="all">Tous</option>
-      <option>{{ Status.ToDo }}</option>
-      <option>{{ Status.InProgress }}</option>
-      <option>{{ Status.Done }}</option>
-    </select>
-
+    <!-- Composant 3: La liste des tasks selon status -->
     <ul>
       <li v-for="task in filtredTasks" :key="task.id">
         {{ task.title }} - {{ task.status }} - {{ task.id }}
