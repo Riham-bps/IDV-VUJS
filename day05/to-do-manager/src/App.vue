@@ -46,6 +46,14 @@ const filtredTasks = computed(() => {
   }
   return taskList.value.filter(task => task.status === filtre.value);
 });
+
+// Fonction 6: Modifier titre de la tache
+function editTask(id: string, title: string) {
+  const task = taskList.value.find(task => task.id === id);
+  if (task) {
+    task.title = title;
+  }
+}
 </script>
 
 <template>
@@ -61,7 +69,7 @@ const filtredTasks = computed(() => {
     <TaskFilter @filtre="changeFiltre" />
 
     <!-- Composant 3 - TaskList - La liste des tasks selon status -->
-    <TaskList :tasks="filtredTasks" @delete="deleteTask" />
+    <TaskList :tasks="filtredTasks" @delete="deleteTask" @edit="editTask" />
   </main>
 
   <footer>Réalisée par bassim_r 2026</footer>
