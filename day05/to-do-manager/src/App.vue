@@ -1,18 +1,26 @@
 <script setup lang="ts">
 import { type Task, Status } from './types/task.ts';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import TaskForm from './components/TaskForm.vue';
 import TaskFilter from './components/TaskFilter.vue';
 import TaskList from './components/TaskList.vue';
 
+// Local Storage
+const saveTasks = localStorage.getItem('tasks');
 // La liste des tasks doit rester dans App.vue
-const taskList = ref<Task[]>([
-  { id: 1, title: 'task1', status: Status.ToDo },
-  { id: 2, title: 'task2', status: Status.ToDo },
-  { id: 3, title: 'task3', status: Status.ToDo },
-]);
+// JSON.parse: transformer json en tableau
+const taskList = ref<Task[]>(saveTasks ? JSON.parse(saveTasks) : []);
+// watch(ce que je surveille, (nouvellevaleur)
+watch(
+  taskList,
+  newList => {
+    localStorage.setItem('tasks', JSON.stringify(newList));
+  },
+  // deep: surveiller meme les modification: status etc
+  { deep: true }
+);
 
-// ajouter task
+// Fonction 1: ajouter task donnée reçue depuis @add TaskForm
 function addTaskToList(title: string) {
   const task: Task = {
     // standard pour générer des valeurs d’ID uniques: integrée déja dans navig pas besoin de importer
@@ -22,16 +30,15 @@ function addTaskToList(title: string) {
   };
   taskList.value.push(task);
 }
-
-//supprimer task
+// Fonction 2: supprimer task donnée reçue depuis @delete TaskList
 function deleteTask(id: number | string) {
   taskList.value = taskList.value.filter(task => task.id !== id);
 }
-
-// filtre des tasks en fonction du statut
+// Fonction 4: changement filtre - donnée reçue depuis @filtre TaskFilter
 function changeFiltre(value: string) {
   filtre.value = value;
 }
+// Fonction 5: la liste des tasks selon filtre
 const filtre = ref('all');
 const filtredTasks = computed(() => {
   if (filtre.value === 'all') {
@@ -47,8 +54,6 @@ const filtredTasks = computed(() => {
   </header>
 
   <main>
-    <!-- mes components: TaskForm, TaskFilter, TaskList -->
-
     <!-- Composant 1 - TaskForm: Ajouter task -->
     <TaskForm @add="addTaskToList" />
 
