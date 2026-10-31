@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { type Task, Status } from './types/task.ts';
 import { computed, ref } from 'vue';
+import TaskForm from './components/TaskForm.vue';
 
 // La liste des tasks doit rester dans App.vue
 const taskList = ref<Task[]>([
@@ -10,22 +11,14 @@ const taskList = ref<Task[]>([
 ]);
 
 // ajouter task
-const titleInput = ref<string>('');
-function addTaskToList() {
-  if (titleInput.value.trim() === '') {
-    // trim pour enlever tous les espaces
-    alert('Erreur: la saisie est vide!');
-  } else {
-    const task: Task = {
-      // standard pour générer des valeurs d’ID uniques: integrée déja dans navig pas besoin de importer
-      id: crypto.randomUUID(),
-      title: titleInput.value,
-      status: Status.ToDo,
-    };
-    taskList.value.push(task);
-    // initialise après saisie de task
-    titleInput.value = '';
-  }
+function addTaskToList(title: string) {
+  const task: Task = {
+    // standard pour générer des valeurs d’ID uniques: integrée déja dans navig pas besoin de importer
+    id: crypto.randomUUID(),
+    title: title,
+    status: Status.ToDo,
+  };
+  taskList.value.push(task);
 }
 
 //supprimer task
@@ -41,11 +34,6 @@ const filtredTasks = computed(() => {
   }
   return taskList.value.filter(task => task.status === filtre.value);
 });
-
-// console navigateur
-// console.log(task1.title)
-// console.log(task2.title)
-// console.log(task3.title)
 </script>
 
 <template>
@@ -56,9 +44,8 @@ const filtredTasks = computed(() => {
   <main>
     <!-- mes components: TaskForm, TaskFilter, TaskList -->
 
-    <!-- Ajouter task -->
-    <input v-model="titleInput" placeholder="Ajouter la tâche" />
-    <button @click="addTaskToList">Ajouter task</button>
+    <!-- Composant 1: TaskForm: Ajouter task -->
+    <TaskForm @add="addTaskToList" />
 
     <!-- La liste des tasks -->
     <h2>filtre</h2>
