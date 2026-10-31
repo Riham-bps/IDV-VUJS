@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type Task, Status } from './types/task.ts';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 // La liste des tasks doit rester dans App.vue
 const taskList = ref<Task[]>([
@@ -9,8 +9,8 @@ const taskList = ref<Task[]>([
   { id: 3, title: 'task3', status: Status.ToDo },
 ]);
 
+// ajouter task
 const titleInput = ref<string>('');
-
 function addTaskToList() {
   if (titleInput.value.trim() === '') {
     // trim pour enlever tous les espaces
@@ -27,9 +27,20 @@ function addTaskToList() {
     titleInput.value = '';
   }
 }
+
+//supprimer task
 function deleteTask(id: number | string) {
   taskList.value = taskList.value.filter(task => task.id !== id);
 }
+
+// filtre des tasks en fonction du statut
+const filtre = ref('all');
+const filtredTasks = computed(() => {
+  if (filtre.value === 'all') {
+    return taskList.value;
+  }
+  return taskList.value.filter(task => task.status === filtre.value);
+});
 
 // console navigateur
 // console.log(task1.title)
@@ -50,8 +61,17 @@ function deleteTask(id: number | string) {
     <button @click="addTaskToList">Ajouter task</button>
 
     <!-- La liste des tasks -->
+    <h2>filtre</h2>
+
+    <select v-model="filtre">
+      <option value="all">Tous</option>
+      <option>{{ Status.ToDo }}</option>
+      <option>{{ Status.InProgress }}</option>
+      <option>{{ Status.Done }}</option>
+    </select>
+
     <ul>
-      <li v-for="task in taskList" :key="task.id">
+      <li v-for="task in filtredTasks" :key="task.id">
         {{ task.title }} - {{ task.status }} - {{ task.id }}
 
         <!-- Supprimer task -->
@@ -65,7 +85,6 @@ function deleteTask(id: number | string) {
         </select>
 
         <!-- Edit titre task -->
-        <!-- <button @click="deleteTask(task.id)">modifier task</button> -->
         <input v-model="task.title" placeholder="Modifier la tâche" />
       </li>
     </ul>
