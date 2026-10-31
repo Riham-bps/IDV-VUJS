@@ -17,6 +17,7 @@ The goal of this project is to design a working prototype of a to-do manager app
 
 - The title of a task can be edited
 - Tasks can be filtered by status
+- The interface elements are accessible to people with disabilities and include ARIA attributes.
 
 ## Technologies Used
 

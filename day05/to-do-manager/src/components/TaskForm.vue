@@ -23,9 +23,13 @@ function submit() {
 <template>
   <!-- prevent: empêcher de recharger la page après submit -->
   <form @submit.prevent="submit">
-    <input v-model="titleInput" placeholder="Ajouter la tâche" />
+    <input
+      v-model="titleInput"
+      placeholder="Ajouter la tâche"
+      aria-label="Title of the new task"
+    />
     <button type="submit">Ajouter task</button>
-    <p v-if="messageError">{{ messageError }}</p>
+    <p v-if="messageError" role="alert">{{ messageError }}</p>
     <p v-else></p>
   </form>
 </template>

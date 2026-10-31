@@ -10,7 +10,11 @@ const filtre = ref('all');
 </script>
 
 <template>
-  <select v-model="filtre" @change="emit('filtre', filtre)">
+  <select
+    v-model="filtre"
+    @change="emit('filtre', filtre)"
+    aria-label="Filter tasks by status"
+  >
     <option value="all">Tous</option>
     <option>{{ Status.ToDo }}</option>
     <option>{{ Status.InProgress }}</option>
