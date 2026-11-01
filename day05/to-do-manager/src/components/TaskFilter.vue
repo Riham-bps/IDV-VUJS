@@ -19,9 +19,9 @@ const filtre = ref('all');
       aria-label="Filter tasks by status"
     >
       <option value="all">Tous</option>
-      <option>{{ Status.ToDo }}</option>
-      <option>{{ Status.InProgress }}</option>
-      <option>{{ Status.Done }}</option>
+      <option :value="Status.ToDo">{{ Status.ToDo }}</option>
+      <option :value="Status.InProgress">{{ Status.InProgress }}</option>
+      <option :value="Status.Done">{{ Status.Done }}</option>
     </select>
   </div>
 </template>

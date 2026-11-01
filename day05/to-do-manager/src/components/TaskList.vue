@@ -72,6 +72,7 @@ function submitTitle(id: string) {
 
 <style scoped>
 ul {
+  /* NE PAS AFFICHER les tirets points de la liste */
   list-style: none;
   padding: 0;
   margin: 0;
