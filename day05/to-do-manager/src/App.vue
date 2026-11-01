@@ -10,7 +10,7 @@ const saveTasks = localStorage.getItem('tasks');
 // La liste des tasks doit rester dans App.vue
 // JSON.parse: transformer json en tableau
 const taskList = ref<Task[]>(saveTasks ? JSON.parse(saveTasks) : []);
-// watch(ce que je surveille, (nouvellevaleur)
+// watch(ce que je surveille, (ma nouvelle valeur)
 watch(
   taskList,
   newList => {
@@ -75,4 +75,68 @@ function editTask(id: string, title: string) {
   <footer>Réalisée par bassim_r 2026</footer>
 </template>
 
-<style scoped></style>
+<style>
+/* Style sur toute la page */
+/* racine du projet, déclare toutes les variables de couleur */
+/* https://www.realtimecolors.com/?colors=623307-f4e1d2-2f27ce-dedcff-433bff&fonts=Inter-Inter */
+:root {
+  --text: #623307; /* couleur du texte et boutons */
+  --text-dark: #4a2605;
+  --background: #f4e1d2; /* couleur de fond de la page */
+  --primary: #2f27ce; /* couleur des boutons */
+  --primary-dark: #241f9c; /* couleur survol boutons */
+  --secondary: #dedcff; /* header */
+  --accent: #433bff; /* champ actif */
+  --white: #ffffff; /* couleur du texte sur les boutons */
+  --border: #cbc8f5; /* couleur des bordures */
+  --red: #a8322d; /* couleur des messages d'erreur */
+}
+* {
+  box-sizing: border-box;
+}
+/* La page entiere */
+body {
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: var(--background);
+  color: var(--text);
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+</style>
+<style scoped>
+header {
+  background-color: var(--secondary);
+  text-align: center;
+  padding: 1.5rem 1.5rem;
+}
+h1 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 640px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+footer {
+  color: var(--text);
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.9rem;
+}
+</style>

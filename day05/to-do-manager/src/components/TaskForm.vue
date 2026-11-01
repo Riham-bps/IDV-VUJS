@@ -34,4 +34,43 @@ function submit() {
   </form>
 </template>
 
-<style scoped></style>
+<style scoped>
+form {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: var(--secondary);
+  border: 1px solid var(--border);
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 10px;
+}
+input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text);
+}
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+button {
+  padding: 0.6rem 0.8rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: var(--primary-dark);
+}
+p {
+  width: 100%;
+  margin: 0;
+  color: var(--red);
+  font-size: 0.9rem;
+}
+</style>
