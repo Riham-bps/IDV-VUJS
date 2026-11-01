@@ -1,35 +1,51 @@
 @import "./base.css";
 
+/* Style sur toute la page */
+/* racine du projet, déclare toutes les variables de couleur */
+/* https://www.realtimecolors.com/?colors=623307-f4e1d2-2f27ce-dedcff-433bff&fonts=Inter-Inter */
+:root {
+  --text: #623307;
+  /* couleur du texte et boutons */
+  --text-dark: #4a2605;
+  --background: #f4e1d2;
+  /* couleur de fond de la page */
+  --primary: #2f27ce;
+  /* couleur des boutons */
+  --primary-dark: #241f9c;
+  /* couleur survol boutons */
+  --secondary: #dedcff;
+  /* header */
+  --accent: #433bff;
+  /* champ actif */
+  --white: #ffffff;
+  /* couleur du texte sur les boutons */
+  --border: #cbc8f5;
+  /* couleur des bordures */
+  --red: #a8322d;
+  /* couleur des messages d'erreur */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* La page entiere */
+body {
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: var(--background);
+  color: var(--text);
+}
+
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+button,
+input,
+select {
+  font: inherit;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-}
