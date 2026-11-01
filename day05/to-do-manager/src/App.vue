@@ -20,7 +20,7 @@ watch(
   { deep: true }
 );
 
-// Fonction 1: ajouter task donnée reçue depuis @add TaskForm
+// Fonction 1: ajouter task donnée reçue depuis event @add TaskForm
 function addTaskToList(title: string) {
   const task: Task = {
     // standard pour générer des valeurs d’ID uniques: integrée déja dans navig pas besoin de importer
@@ -30,11 +30,11 @@ function addTaskToList(title: string) {
   };
   taskList.value.push(task);
 }
-// Fonction 2: supprimer task donnée reçue depuis @delete TaskList
+// Fonction 2: supprimer task donnée reçue depuis event @delete TaskList
 function deleteTask(id: string) {
   taskList.value = taskList.value.filter(task => task.id !== id);
 }
-// Fonction 4: changement filtre - donnée reçue depuis @filtre TaskFilter
+// Fonction 4: changement filtre - donnée reçue depuis event @filtre TaskFilter
 function changeFiltre(value: string) {
   filtre.value = value;
 }
@@ -65,10 +65,10 @@ function editTask(id: string, title: string) {
     <!-- Composant 1 - TaskForm: Ajouter task -->
     <TaskForm @add="addTaskToList" />
 
-    <!-- Composant 2 - FilterTask - Filtre des tasks -->
+    <!-- Composant 2 - TaskFilter - Filtrer les tasks -->
     <TaskFilter @filtre="changeFiltre" />
 
-    <!-- Composant 3 - TaskList - La liste des tasks selon status -->
+    <!-- Composant 3 - TaskList - Afficher la liste des tasks selon status choisi -->
     <TaskList :tasks="filtredTasks" @delete="deleteTask" @edit="editTask" />
   </main>
 

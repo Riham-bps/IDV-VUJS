@@ -2,7 +2,7 @@
 import { type Task, Status } from '@/types/task';
 import { ref } from 'vue';
 
-// props tasks recus de App.vue
+// props tasks recus depuis App.vue
 const props = defineProps<{ tasks: Task[] }>();
 // emit va envoyer deux events à App.vue delete et edit
 const emit = defineEmits(['delete', 'edit']);
@@ -33,6 +33,7 @@ function submitTitle(id: string) {
 <template>
   <ul>
     <li v-for="task in props.tasks" :key="task.id" :data-status="task.status">
+      <!-- Afficher le titre de la tache ou formulaire de modification -->
       <form v-if="editedId === task.id" @submit.prevent="submitTitle(task.id)">
         <input
           v-model="editedTitle"
@@ -51,6 +52,7 @@ function submitTitle(id: string) {
           <option>{{ Status.InProgress }}</option>
           <option>{{ Status.Done }}</option>
         </select>
+        <!-- Bouton Modifier task -->
         <button
           v-if="editedId !== task.id"
           @click="editingTitle(task)"
@@ -58,14 +60,11 @@ function submitTitle(id: string) {
         >
           Modifier
         </button>
-        <!-- Supprimer task -->
-        <!-- envoie evenement delete +id  -->
+        <!-- Bouton Supprimer task: envoie evenement delete +id -->
         <button @click="emit('delete', task.id)" aria-label="Delete task">
           Supprimer
         </button>
       </div>
-
-      <!-- Edit titre task soit formulaire de modification soit bouton modifier-->
     </li>
   </ul>
 </template>
